@@ -30,6 +30,18 @@
     return transforms.map((transform, index) => ({ transform, offset: index / (transforms.length - 1) }));
   }
   // All studies share a twelve-second clock: order, opposition, common ground.
+  animate('.intro-grid', [
+    {opacity:1,transform:'scale(1)',offset:0},
+    {opacity:1,transform:'scale(1)',offset:.25},
+    {opacity:.35,transform:'rotate(7deg) scale(1.12)',offset:.5},
+    {opacity:.7,transform:'scale(1)',offset:.75},
+    {opacity:1,transform:'scale(1)',offset:1}
+  ]);
+  animate('.intro-rational', movement(['translate(0,0)', 'translate(0,0)', 'translate(-12px,15px) rotate(-12deg)', 'translate(10px,-5px) rotate(-5deg)', 'translate(0,0)']));
+  animate('.intro-human', movement(['translate(0,0)', 'translate(0,0)', 'translate(12px,-20px) rotate(13deg)', 'translate(-12px,-6px) rotate(6deg)', 'translate(0,0)']));
+  animate('.intro-interruption', movement(['scale(.8)', 'scale(.8)', 'translate(-18px,20px) rotate(90deg) scale(1.1)', 'translate(-4px,6px) rotate(180deg)', 'scale(.8)']));
+  animate('.intro-form-arrow', movement(['translate(0,0)', 'translate(0,0)', 'translate(8px,-8px)', 'translate(3px,-3px)', 'translate(0,0)']));
+  animate('.intro-asterisk', movement(['rotate(0deg)', 'rotate(0deg)', 'rotate(90deg)', 'rotate(140deg)', 'rotate(180deg)']));
   animate('.headline-make', movement(['translateX(0)', 'translateX(0)', 'translateX(3%)', 'translateX(-1%)', 'translateX(0)']));
   animate('.headline-room', movement(['translateX(0)', 'translateX(0)', 'translateX(-9%)', 'translateX(3%)', 'translateX(0)']));
   animate('.headline-for', movement(['rotate(-9deg)', 'rotate(-9deg)', 'rotate(13deg) translateY(-8px)', 'rotate(-16deg)', 'rotate(-9deg)']));
@@ -91,6 +103,10 @@
     if (phase !== currentPhase) {
       currentPhase = phase;
       document.querySelectorAll('[data-phase]').forEach((el,index) => el.setAttribute('aria-current',String(index === phase)));
+      document.querySelector('#introduction').dataset.act = String(phase);
+      document.querySelectorAll('[data-intro-chapter]').forEach(button => {
+        button.setAttribute('aria-pressed', String(Number(button.dataset.introChapter) === phase));
+      });
     }
   }
   function tick(timestamp) {
@@ -111,6 +127,15 @@
     frame = playing && !document.hidden && !dragging ? requestAnimationFrame(tick) : null;
   }
   playButton.addEventListener('click', () => { userChosePlayback = true; playing = !playing; syncPlayback(); });
+  document.querySelectorAll('[data-intro-chapter]').forEach(button => {
+    button.addEventListener('click', () => {
+      userChosePlayback = true;
+      playing = false;
+      time = Number(button.dataset.introChapter) * 4000;
+      render();
+      syncPlayback();
+    });
+  });
   document.querySelector('#motion-replay').addEventListener('click', () => { time = 0; render(); previous = null; });
   document.querySelector('#motion-speed').addEventListener('change', event => {
     speed = Number(event.target.value);

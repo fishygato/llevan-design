@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f0e7">
+  <title>llevan — A little friction / Motion film</title>
+  <link rel="stylesheet" href="demo.css">
+  <link rel="stylesheet" href="demo-stage.css">
+  <script src="demo-audio.js" defer></script>
+  <script src="demo.js" defer></script>
+</head>
+<body>
+  <main class="film-shell">
+    <header class="film-header">
+      <a class="wordmark" href="index.html" aria-label="Back to llevan design language"><span>↗</span> llevan</a>
+      <span class="edition">A LANGUAGE FOR PRODUCTIVE FRICTION</span>
+      <a class="back-link" href="index.html">THE SPECIMEN ↗</a>
+    </header>
+    <div class="film-caption"><span><i aria-hidden="true"></i> A LITTLE FRICTION — A MOTION FILM</span><span>06 IDEAS / 24 SECONDS / ONE LANGUAGE</span></div>
+    <section class="film" aria-label="Animated design language demonstration">
+      <div class="story">
+        <span id="chapter-number" class="eyebrow">01 / THE FOUNDATION</span>
+        <h1 id="headline">Start with<br>some <em>order.</em></h1>
+        <p id="description">A visible grid. A confident ink line. Structure gives every idea a place to begin.</p>
+        <span class="story-foot">RATIONAL. HUMAN.<br>ALWAYS IN MOTION. <span>↘</span></span>
+      </div>
+      <div class="artwork" role="group" aria-label="Interactive composition. Click a shape or use its displayed key.">
+        <div class="canvas">
+          <div class="color-wash wash-blue" aria-hidden="true"></div><div class="color-wash wash-pink" aria-hidden="true"></div>
+          <div class="grid"></div>
+          <div class="orbit orbit-one" aria-hidden="true"><span>✳</span></div><div class="orbit orbit-two" aria-hidden="true"><span>↗</span></div>
+          <div class="motion-traces" aria-hidden="true"><svg viewBox="0 0 500 400" preserveAspectRatio="none"><path class="trace-blue" d="M35 350 C80 340 60 80 190 90 S300 350 455 70"/><path class="trace-pink" d="M45 110 C180 20 215 330 430 290"/></svg></div>
+          <span class="voice-label voice-think" aria-hidden="true">THINK / ↗</span><span class="voice-label voice-feel" aria-hidden="true">FEEL / ✳</span>
+          <span class="registration top-left">+</span><span class="registration bottom-right">+</span>
+          <span class="axis-note">STRUCTURE → POSSIBILITY</span>
+          <button type="button" class="form give" data-action="give" aria-label="Give: send an idea upward" aria-keyshortcuts="g"><span class="form-name">GIVE</span><strong>A little<br>structure.</strong><span class="give-arrow">↗</span><kbd>G</kbd></button>
+          <button type="button" class="form ask" data-action="ask" aria-label="Ask: open an invitation" aria-keyshortcuts="a"><svg viewBox="0 0 230 145" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 115 77 230 0"/></svg><span class="form-name">ASK</span><strong>What if?</strong><span class="ask-arrow">↗</span><kbd>A</kbd></button>
+          <button type="button" class="form speak" data-action="speak" aria-label="Speak: leave a human signature" aria-keyshortcuts="s"><i class="tag-hole"></i><span class="form-name">SPEAK</span><strong>A little<br>feeling.</strong><svg viewBox="0 0 90 50" aria-hidden="true"><path d="M3 35 Q15 8 24 34 T44 29 T67 25 L85 9 M68 8 L85 9 L86 26"/></svg><kbd>S</kbd></button>
+          <button type="button" class="form press" data-action="press" aria-label="Press: release an impulse" aria-keyshortcuts="Enter"><span class="form-name">PRESS</span><strong>Go on.</strong><span class="press-arrow">↵</span><kbd>↵</kbd></button>
+          <button type="button" class="interruption" data-action="friction" aria-label="Friction: disrupt the composition" aria-keyshortcuts="x">+<kbd>X</kbd></button>
+          <div class="ink-band">MAKE ROOM<br>FOR CONFLICT.</div>
+          <span class="canvas-note">NOT QUITE IN LINE. JUST RIGHT.</span>
+        </div>
+        <div class="artwork-footer"><span id="study-label">FIG. 01 / ORDER IS THE STARTING POINT</span><span>↗</span></div>
+      </div>
+    </section>
+    <div class="control-dock">
+    <div class="interaction-bar"><p id="interaction-feedback" role="status">Play the shapes. Click a form or press its key.</p><button id="keycaps" type="button" aria-pressed="true" aria-keyshortcuts="k"><kbd>K</kbd> KEYCAPS ON</button></div>
+    <nav class="chapters" aria-label="Film chapters">
+      <button type="button" data-chapter="0" aria-pressed="true"><span>01</span> Order <i></i></button>
+      <button type="button" data-chapter="1" aria-pressed="false"><span>02</span> Intention <i></i></button>
+      <button type="button" data-chapter="2" aria-pressed="false"><span>03</span> Personality <i></i></button>
+      <button type="button" data-chapter="3" aria-pressed="false"><span>04</span> Friction <i></i></button>
+      <button type="button" data-chapter="4" aria-pressed="false"><span>05</span> Impulse <i></i></button>
+      <button type="button" data-chapter="5" aria-pressed="false"><span>06</span> Common ground <i></i></button>
+    </nav>
+    <div class="transport" role="group" aria-label="Playback controls">
+      <button id="play" type="button" aria-label="Pause film">Ⅱ <span>PAUSE</span></button>
+      <button id="replay" type="button" aria-label="Replay film">↺ <span>REPLAY</span></button>
+      <label class="timeline"><span class="sr-only">Film timeline in seconds</span><input id="scrub" type="range" min="0" max="24" step="0.01" value="0" aria-valuetext="0 seconds of 24"></label>
+      <output id="time">00.0 / 24.0</output>
+      <label class="tempo">TEMPO <select id="speed" aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+    </div>
+    <div class="sound-bar" role="group" aria-label="Sound controls"><button id="sound" type="button" aria-pressed="false" aria-keyshortcuts="m">♫ <span>SOUND OFF</span> <kbd>M</kbd></button><label>VOLUME <input id="volume" type="range" min="0" max="100" step="1" value="45" aria-label="Sound volume"></label><span id="sound-note">LAYERED SCORE / FIVE PLAYABLE VOICES</span><div class="rhythm-meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    </div>
+    <footer><span>BUILT ON A GRID. DRIVEN BY A FEELING.</span><span>SPACE TO PLAY / ← → CHAPTERS / G A S ↵ X TO INTERACT</span><span>LLEVAN / EDITION 001</span></footer>
+    <noscript><p>Enable JavaScript to play the film. The composition above shows the design language at rest.</p></noscript>
+  </main>
+</body>
+</html>

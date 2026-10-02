@@ -1,0 +1,217 @@
+/* The viewport is the stage. Type and controls float above its choreography. */
+:root { --edge: clamp(16px, 3vw, 48px); }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+.film-shell { max-width: none; padding: 0; min-height: 100svh; }
+.film { display: block; min-height: 0; padding: 0; }
+.artwork {
+  position: fixed; inset: 0; width: auto; max-width: none;
+  border: 0; box-shadow: none; z-index: 0;
+}
+.canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  aspect-ratio: auto; background: var(--paper);
+}
+.grid { inset: -5%; opacity: .6; }
+.color-wash { width: 90%; }
+.wash-blue { left: -25%; top: -40%; }
+.wash-pink { right: -30%; bottom: -65%; }
+.orbit-one { left: -8%; top: -12%; width: 120%; height: 125%; }
+.orbit-two { left: 20%; top: -25%; width: 80%; height: 150%; }
+.orbit > span { width: clamp(40px, 5vw, 80px); height: clamp(40px, 5vw, 80px); font-size: clamp(32px, 4vw, 68px); }
+.orbit-two > span { width: clamp(35px, 4vw, 64px); height: clamp(35px, 4vw, 64px); font-size: clamp(25px, 3vw, 48px); }
+.motion-traces { inset: -12%; }
+.motion-traces svg { stroke-width: 1.4; }
+.registration { display: none; }
+.axis-note { left: var(--edge); bottom: 195px; font-size: 8px; }
+.canvas-note { right: var(--edge); left: auto; bottom: 195px; font-size: 8px; }
+.voice-label { font-size: 10px; padding: 8px 12px; }
+.voice-think { left: 46%; top: 19%; }
+.voice-feel { right: 10%; bottom: 27%; }
+.form, .interruption { left: 50%; top: 50%; right: auto; }
+.form {
+  width: clamp(180px, 22vw, 350px); height: clamp(140px, 26vh, 270px);
+  padding: clamp(18px, 2.3vw, 35px); font-size: clamp(20px, 2.6vw, 40px);
+  box-shadow: 8px 10px 0 var(--ink);
+}
+.form-name { font-size: clamp(8px, .8vw, 12px); margin-bottom: 15px; }
+.form kbd, .interruption kbd {
+  min-width: clamp(24px, 2.3vw, 34px); height: clamp(24px, 2.3vw, 34px);
+  font-size: clamp(11px, 1vw, 16px); padding: 0 5px; border-radius: 4px;
+}
+.give { border-radius: 0 0 65px 65px; }
+.give-arrow { font-size: clamp(46px, 7vw, 105px); }
+.ask { width: clamp(180px, 23vw, 350px); height: clamp(120px, 21vh, 215px); }
+.ask strong { font-size: clamp(20px, 2.6vw, 38px); }
+.speak { width: clamp(185px, 24vw, 370px); height: clamp(135px, 23vh, 230px); padding-left: clamp(32px, 4vw, 60px); }
+.speak strong { font-size: clamp(25px, 3vw, 46px); }
+.tag-hole { width: 12px; height: 12px; }
+.press { width: clamp(130px, 15vw, 225px); height: clamp(110px, 19vh, 185px); border-radius: 15px; }
+.press strong { font-size: clamp(22px, 2.5vw, 36px); }
+.press-arrow { font-size: clamp(26px, 3vw, 46px); }
+.interruption { width: clamp(64px, 7vw, 110px); font-size: clamp(38px, 5vw, 75px); }
+.ink-band {
+  left: -5%; top: 35%; width: 110%; padding: 2% 5%;
+  font-size: clamp(68px, 11vw, 180px); line-height: .85;
+}
+.film-header {
+  position: fixed; z-index: 30; top: 0; left: var(--edge); right: var(--edge);
+  height: 72px; border-bottom: 1px solid var(--ink);
+}
+.wordmark, .back-link, .edition { background: var(--paper); }
+.edition { padding: 5px 10px; }
+.film-caption {
+  position: fixed; z-index: 20; top: 82px; left: var(--edge); right: var(--edge);
+  padding: 0; pointer-events: none; font-size: 8px;
+}
+.film-caption > span { background: var(--paper); padding: 3px 0; }
+.story {
+  position: fixed; z-index: 10; left: var(--edge); top: 19%; width: 42%;
+  pointer-events: none;
+}
+.story h1 { font-size: clamp(46px, 5.6vw, 95px); margin: 17px 0 18px; }
+.film-shell[data-act="3"] .story h1 { background: var(--paper); width: fit-content; padding: 4px 8px; margin-left: -8px; }
+.story .eyebrow { background: var(--paper); padding: 4px 7px; margin-left: -7px; }
+.story p {
+  max-width: 320px; font-size: 12px; line-height: 1.6;
+  min-height: 0; margin: 0; padding: 7px 10px; margin-left: -10px;
+  background: var(--paper);
+}
+.story-foot { display: none; }
+.artwork-footer {
+  position: fixed; z-index: 12; top: 120px; right: var(--edge);
+  width: auto; gap: 18px; padding: 6px 9px; border: 0;
+  background: var(--paper); font-size: 8px;
+}
+.control-dock {
+  position: fixed; z-index: 40; left: var(--edge); right: var(--edge);
+  bottom: max(33px, env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  background: rgba(242, 240, 231, .96); border: var(--rule);
+  box-shadow: 4px 5px 0 var(--ink);
+  max-height: 42svh; overflow-y: auto;
+}
+.interaction-bar {
+  grid-column: 1 / -1; padding: 5px 14px; gap: 14px;
+  font-size: 9px; border-bottom: 1px solid var(--ink);
+}
+.interaction-bar p { min-height: 24px; }
+.interaction-bar button { padding: 2px 0; font-size: 8px; }
+.interaction-bar kbd { height: 20px; min-width: 20px; font-size: 10px; }
+.chapters { grid-column: 1 / -1; border-top: 0; border-bottom: 1px solid var(--ink); }
+.chapters button { display: flex; gap: 10px; align-items: center; padding: 12px 14px; font-size: 10px; }
+.chapters button > span { margin: 0; font-size: 8px; }
+.transport { padding: 10px 14px; gap: 15px; border: 0; }
+.transport button { font-size: 10px; }
+.tempo { font-size: 7px; }
+.sound-bar { padding: 10px 14px; gap: 16px; border: 0; border-left: 1px solid var(--ink); }
+.sound-bar button { font-size: 9px; white-space: nowrap; }
+.sound-bar kbd { height: 20px; min-width: 20px; font-size: 10px; }
+.sound-bar input { width: 65px; }
+#sound-note { font-size: 7px; }
+.rhythm-meter { min-width: 52px; gap: 2px; height: 20px; margin-left: auto; }
+footer {
+  position: fixed; z-index: 20; left: var(--edge); right: var(--edge); bottom: 5px;
+  padding: 4px 0; font-size: 7px; pointer-events: none;
+}
+noscript { position: fixed; top: 45%; left: var(--edge); z-index: 50; background: var(--paper); }
+
+@media (max-width: 1100px) {
+  #sound-note { display: none; }
+  .control-dock { grid-template-columns: 1.25fr 1fr; }
+  .sound-bar { gap: 12px; }
+  .story h1 { font-size: 5.7vw; }
+}
+@media (max-width: 700px) {
+  .film-header { height: 56px; }
+  .edition { display: none; }
+  .film-caption { top: 65px; font-size: 6px; }
+  .film-caption > span:last-child { max-width: 125px; }
+  .artwork-footer { top: 90px; right: var(--edge); font-size: 6px; }
+  .artwork-footer > span:last-child { font-size: 16px; }
+  .story { top: 13%; width: calc(100% - 2*var(--edge)); }
+  .story h1 { font-size: clamp(32px, 8vw, 48px); margin: 10px 0; }
+  .story .eyebrow { font-size: 7px; }
+  .story p { font-size: 10px; max-width: 290px; line-height: 1.4; }
+  .form { width: clamp(135px, 38vw, 230px); height: clamp(120px, 19vh, 180px); padding: 16px; font-size: 19px; }
+  .give { border-radius: 0 0 38px 38px; }
+  .give-arrow { font-size: 52px; }
+  .form-name { font-size: 7px; margin-bottom: 10px; }
+  .ask { width: clamp(135px, 38vw, 210px); height: clamp(100px, 16vh, 150px); }
+  .ask strong { font-size: 18px; }
+  .speak { width: clamp(150px, 42vw, 240px); height: clamp(115px, 18vh, 170px); padding-left: 29px; }
+  .speak strong { font-size: 23px; }
+  .press { width: clamp(105px, 29vw, 155px); height: clamp(95px, 14vh, 130px); }
+  .press strong { font-size: 20px; }
+  .form kbd, .interruption kbd { min-width: 21px; height: 21px; font-size: 10px; }
+  .interruption { width: 58px; font-size: 36px; }
+  .voice-think { top: 35%; left: 7%; }
+  .voice-feel { bottom: 29%; right: 5%; }
+  .voice-label { font-size: 7px; padding: 5px 7px; }
+  .axis-note, .canvas-note { display: none; }
+  .ink-band { top: 39%; font-size: 15vw; padding: 5%; }
+  .control-dock { bottom: max(27px, env(safe-area-inset-bottom)); grid-template-columns: 1fr; }
+  .interaction-bar { padding: 4px 9px; align-items: center; font-size: 7px; }
+  .interaction-bar p { min-height: 26px; max-width: none; flex: 1; }
+  .interaction-bar button { font-size: 7px; gap: 6px; }
+  .chapters { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .chapters button { flex-direction: column; gap: 4px; padding: 8px 2px 10px; font-size: 7px; line-height: 1.2; text-align: center; }
+  .chapters button:nth-child(3) { border-right: 1px solid var(--ink); }
+  .chapters button:nth-child(-n+3) { border-bottom: 0; }
+  .transport { gap: 12px; padding: 7px 9px; flex-wrap: nowrap; border-bottom: 1px solid var(--ink); }
+  .timeline { order: 0; flex-basis: auto; }
+  output { order: 0; font-size: 8px; }
+  .tempo { margin-left: 0; font-size: 0; gap: 0; }
+  .tempo select { font-size: 9px; padding: 3px; }
+  .transport button { font-size: 9px; }
+  .sound-bar { grid-column: 1; flex-wrap: nowrap; padding: 6px 9px; border-left: 0; }
+  .sound-bar input { width: 75px; }
+  footer > span:nth-child(2) { display: none; }
+}
+@media (max-height: 600px) and (min-width: 701px) {
+  .film-header { height: 48px; }
+  .film-caption { top: 55px; }
+  .artwork-footer { top: 80px; }
+  .story { top: 23%; }
+  .story h1 { font-size: clamp(30px, 4vw, 54px); margin: 10px 0; }
+  .story p { font-size: 10px; max-width: 270px; }
+  .form { height: 125px; width: 190px; padding: 15px; font-size: 20px; }
+  .give-arrow { font-size: 46px; }
+  .ask { height: 110px; }
+  .speak { height: 120px; padding-left: 32px; }
+  .speak strong { font-size: 23px; }
+  .press { height: 100px; width: 140px; }
+  .form-name { margin-bottom: 8px; }
+  .control-dock { bottom: 24px; }
+  .chapters button { padding: 7px 12px; }
+  .transport, .sound-bar { padding-top: 5px; padding-bottom: 5px; }
+  .axis-note, .canvas-note { display: none; }
+}
+@media (max-height: 600px) and (max-width: 700px) {
+  .film-header { height: 43px; }
+  .film-caption { top: 49px; }
+  .artwork-footer { top: 72px; }
+  .story { top: 19%; width: 50%; }
+  .story h1 { font-size: 28px; margin: 8px 0; }
+  .story p { display: none; }
+  .form { height: 95px; width: 125px; padding: 12px; font-size: 16px; }
+  .give-arrow { font-size: 36px; }
+  .form-name { font-size: 6px; margin-bottom: 8px; }
+  .ask { height: 90px; }
+  .ask strong { font-size: 16px; }
+  .speak { height: 100px; width: 140px; padding-left: 25px; }
+  .speak strong { font-size: 19px; }
+  .press { height: 80px; width: 105px; }
+  .press strong { font-size: 18px; }
+  .voice-label { display: none; }
+  .interaction-bar { display: none; }
+  .chapters button { flex-direction: row; padding: 6px 3px; gap: 3px; font-size: 6px; }
+  .transport, .sound-bar { padding-top: 4px; padding-bottom: 4px; }
+}
+@media (max-width: 380px) {
+  .transport button span { display: none; }
+  .transport button { font-size: 16px; }
+  .transport { gap: 10px; }
+  .sound-bar { gap: 8px; }
+  .sound-bar button kbd { display: none; }
+  .sound-bar input { width: 55px; }
+}
